@@ -1,0 +1,260 @@
+@font-face {
+  font-family: "Krillion Drop Pixel";
+  src: url("/fonts/vt323.woff2") format("woff2");
+  font-display: swap;
+}
+.wcdrop {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  isolation: isolate;
+  font-family: "Krillion Drop Pixel", monospace;
+  --catch-ink: #92a4c1;
+}
+.wcdrop-guides {
+  position: absolute;
+  inset: 0;
+  will-change: transform;
+}
+.wcdrop-line {
+  position: absolute;
+  top: 0;
+  left: max(2.5%, calc(50% - 420px));
+  right: max(7%, calc(50% - 390px));
+  height: 1px;
+  border-top: 2px dashed #93aaca73;
+  opacity: 0;
+  animation: wcdrop-line-in 420ms var(--fade-delay) both;
+}
+.wcdrop-line-tag {
+  position: absolute;
+  right: 0;
+  bottom: 5px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: clamp(14px, 2.4vw, 19px);
+  line-height: 1;
+  letter-spacing: 0.085em;
+  text-transform: uppercase;
+  color: #a6bdd3;
+  text-shadow: 1px 1px #0a152c;
+}
+.wcdrop-line-icon {
+  width: 20px;
+  height: 16px;
+  display: inline-flex;
+}
+.wcdrop-line-icon svg {
+  width: 100%;
+  height: 100%;
+}
+.wcdrop-line.crossed {
+  border-color: var(--line-ink);
+  box-shadow: 0 0 10px color-mix(in srgb, var(--line-ink) 62%, transparent);
+}
+.wcdrop-line.crossed .wcdrop-line-tag {
+  color: var(--line-ink);
+}
+.wcdrop-pill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 3;
+  width: max-content;
+  max-width: min(74vw, 620px);
+  padding: 8px 15px 7px;
+  border: 2px solid var(--catch-ink);
+  background: #0a1830f2;
+  color: var(--catch-ink);
+  text-align: center;
+  box-shadow:
+    0 0 0 2px #071323,
+    0 0 18px color-mix(in srgb, var(--catch-ink) 55%, transparent);
+  text-shadow: 0 0 6px color-mix(in srgb, var(--catch-ink) 62%, transparent);
+  text-transform: uppercase;
+  font-size: clamp(24px, 3vw, 34px);
+  line-height: 1;
+  letter-spacing: 0.045em;
+  will-change: transform;
+  animation: wcdrop-line-in 160ms;
+}
+.wcdrop-answer {
+  position: relative;
+  z-index: 1;
+  display: block;
+  overflow-wrap: anywhere;
+}
+.wcdrop-answer::after {
+  content: " ▾";
+  font-size: 0.78em;
+  opacity: 0.7;
+}
+.wcdrop-bubble {
+  position: absolute;
+  width: var(--size);
+  height: var(--size);
+  border: 1px solid #9ae0f094;
+  border-radius: 50%;
+  animation: wcdrop-rise var(--speed) linear infinite;
+}
+.wcdrop-school {
+  position: absolute;
+  left: -40px;
+  width: 34px;
+  height: 14px;
+  background: #8ad6e5;
+  opacity: 0;
+  clip-path: polygon(
+    0 10%,
+    24% 35%,
+    31% 17%,
+    58% 4%,
+    76% 12%,
+    100% 53%,
+    74% 91%,
+    45% 100%,
+    26% 65%,
+    0 95%
+  );
+  animation: wcdrop-swim 1550ms ease-in-out both;
+}
+.wcdrop-school.from-right {
+  --facing: -1;
+  animation-direction: reverse;
+}
+.wcdrop-shade {
+  position: absolute;
+  inset: -15% 0;
+  z-index: 1;
+  background: radial-gradient(
+    circle at 50% 50%,
+    transparent 52px,
+    #080e2255 16%,
+    #020714d0 68%
+  );
+  will-change: transform;
+  animation: wcdrop-line-in 680ms both;
+}
+.wcdrop-orbit {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 4px;
+  height: 4px;
+  background: #ffe9a8;
+  box-shadow: 0 0 5px #ffc258;
+  animation: wcdrop-orbit 1850ms linear infinite;
+}
+.wcdrop-impact {
+  position: absolute;
+  z-index: 4;
+  top: 0;
+  left: 0;
+}
+.wcdrop-spark {
+  position: absolute;
+  width: var(--size);
+  height: var(--size);
+  background: var(--catch-ink);
+  box-shadow: 0 0 4px var(--catch-ink);
+  animation: wcdrop-spark 440ms cubic-bezier(0.13, 0.5, 0.27, 1) both;
+}
+.wcdrop.landed .wcdrop-pill {
+  opacity: 0;
+  transition: opacity 240ms ease-in;
+}
+.wcdrop.landed {
+  animation: wcdrop-clear 170ms ease-out calc(var(--settle-time) - 170ms) both;
+}
+.wcdrop.landed .wcdrop-line {
+  transition: filter 200ms;
+  filter: brightness(1.25);
+}
+.wcdrop-t5 .wcdrop-spark:nth-child(3n) {
+  background: #fff1bd;
+  width: 5px;
+  height: 5px;
+}
+.wcdrop-miss::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 49%;
+  width: 28px;
+  height: 7px;
+  border-bottom: 1px dashed #90aaca;
+  animation: wcdrop-no-catch 520ms ease-out both;
+}
+@keyframes wcdrop-line-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes wcdrop-clear {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+@keyframes wcdrop-rise {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0);
+  }
+  16% {
+    opacity: 0.65;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(var(--drift), var(--lift));
+  }
+}
+@keyframes wcdrop-swim {
+  0% {
+    opacity: 0;
+    transform: translateX(0) scaleX(var(--facing, 1));
+  }
+  12%,
+  82% {
+    opacity: 0.65;
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(calc(100vw + 65px)) scaleX(var(--facing, 1));
+  }
+}
+@keyframes wcdrop-orbit {
+  from {
+    transform: rotate(var(--angle)) translateX(var(--rx));
+  }
+  to {
+    transform: rotate(calc(var(--angle) + 360deg)) translateX(var(--rx));
+  }
+}
+@keyframes wcdrop-spark {
+  from {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+  to {
+    opacity: 0;
+    transform: translate(var(--dx), var(--dy));
+  }
+}
+@keyframes wcdrop-no-catch {
+  from {
+    opacity: 0.7;
+    transform: translate(-50%, 0);
+  }
+  to {
+    opacity: 0;
+    transform: translate(-50%, 15px) scaleX(2);
+  }
+}

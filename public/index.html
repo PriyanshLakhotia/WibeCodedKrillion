@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1,interactive-widget=resizes-content"
+    />
+    <meta name="theme-color" content="#101a2b" />
+    <meta
+      name="description"
+      content="A seven-prompt deep-sea trivia game. Give a rare answer and watch it sink."
+    />
+    <title>Wibe Coded Krillion</title>
+    <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+    <link
+      rel="preload"
+      href="/fonts/vt323.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link rel="stylesheet" href="/style.css" />
+    <link rel="stylesheet" href="/descent.css" />
+    <link rel="stylesheet" href="/report.css" />
+  </head>
+  <body data-stage="surface">
+    <canvas id="ocean" aria-hidden="true"></canvas>
+    <div class="world-shade" aria-hidden="true"></div>
+    <header class="instruments">
+      <button
+        id="menu"
+        class="hardware menu-key"
+        aria-label="Open menu"
+        aria-haspopup="dialog"
+      >
+        <span class="menu-glyph" aria-hidden="true"></span>
+      </button>
+      <div id="hud" class="hud" hidden>
+        <div class="meter depth-meter">
+          <small>Depth</small><span id="depth">0m</span>
+        </div>
+        <div class="progress">
+          <div id="lights" aria-hidden="true"></div>
+          <small id="round-count">Prompt 1 of 7</small>
+        </div>
+        <div class="meter score-meter">
+          <small>Score</small><span id="score">0</span>
+        </div>
+      </div>
+      <div class="side-tools">
+        <button
+          id="sound"
+          class="hardware"
+          aria-label="Turn sound on"
+          aria-pressed="false"
+        ></button>
+        <button
+          id="settings"
+          class="hardware"
+          aria-label="Open settings"
+          aria-haspopup="dialog"
+        >
+          ⚙
+        </button>
+      </div>
+    </header>
+    <main id="game" aria-label="Wibe Coded Krillion">
+      <div id="screen"></div>
+      <div id="fx" aria-hidden="true"></div>
+      <div id="dock"></div>
+    </main>
+    <div class="crt" aria-hidden="true"></div>
+    <dialog id="dialog" aria-labelledby="dialog-title">
+      <div class="dialog-head">
+        <h2 id="dialog-title"></h2>
+        <button class="hardware" id="close" aria-label="Close dialog">×</button>
+      </div>
+      <div id="dialog-content"></div>
+    </dialog>
+    <div id="toast" role="status" aria-live="polite"></div>
+    <script type="module" src="/app.js"></script>
+  </body>
+</html>
